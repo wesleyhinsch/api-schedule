@@ -1,5 +1,6 @@
 package com.sicred.api.schedule.service;
 
+import com.sicred.api.schedule.controller.dto.VoteDTO;
 import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.model.Vote;
 import com.sicred.api.schedule.repository.AgendaRepository;
@@ -18,7 +19,7 @@ public class VoteService {
     @Autowired
     AgendaRepository agendaRepository;
 
-    public void save() {
+    public void save(VoteDTO voteDTO) {
         Vote vote = new Vote();
 
         validateVote(vote);
