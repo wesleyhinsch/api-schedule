@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 
-import static java.lang.Integer.parseInt;
-
 @Service
 public class AgendaService {
 
@@ -20,7 +18,7 @@ public class AgendaService {
         Calendar dateCurrente = Calendar.getInstance();
         Agenda agenda = new Agenda();
 
-        dateCurrente.add(Calendar.SECOND,parseInt(agendaDTO.getClosure()));
+        dateCurrente.add(Calendar.SECOND,agendaDTO.getClosure());
         agenda.setClosure(dateCurrente);
         agenda.setName(agendaDTO.getName());
         agenda.setActive(Boolean.TRUE);

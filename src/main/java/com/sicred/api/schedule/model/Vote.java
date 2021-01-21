@@ -6,6 +6,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,6 +37,7 @@ public class Vote implements Serializable{
     private String cpf;
 
     @NotNull
+    @Enumerated(EnumType.ORDINAL)
     private EnumOption enumOption;
 
 
