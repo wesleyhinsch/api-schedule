@@ -8,6 +8,7 @@ class ApiScheduleApplicationTests {
 
 	@Test
 	void contextLoads() {
+		assert true;
 	}
 
 }
