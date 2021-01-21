@@ -1,10 +1,12 @@
 package com.sicred.api.schedule.controller.dto;
 
-import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
-@Builder(toBuilder = true)
+@Getter
+@Setter
 public class AgendaDTO {
     @NotEmpty(message = "{required.validation.segundos}")
     String closure;

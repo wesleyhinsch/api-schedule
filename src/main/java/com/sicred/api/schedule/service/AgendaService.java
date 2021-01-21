@@ -6,6 +6,10 @@ import com.sicred.api.schedule.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+
+import static java.lang.Integer.parseInt;
+
 @Service
 public class AgendaService {
 
@@ -13,7 +17,16 @@ public class AgendaService {
     AgendaRepository agendaRepository;
 
     public void save(AgendaDTO agendaDTO) {
+        Calendar dateCurrente = Calendar.getInstance();
         Agenda agenda = new Agenda();
+
+        dateCurrente.add(Calendar.SECOND,parseInt(agendaDTO.getClosure()));
+        agenda.setClosure(dateCurrente);
+        agenda.setName(agendaDTO.getName());
+        agenda.setActive(Boolean.TRUE);
+
+        agendaRepository.findAgendaByName(agendaDTO.getName());
+
         agendaRepository.save(agenda);
     }
 

@@ -6,12 +6,15 @@ import com.sicred.api.schedule.model.Vote;
 import com.sicred.api.schedule.repository.AgendaRepository;
 import com.sicred.api.schedule.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class VoteService {
+
+    private static String URL_VALIDATION_CPF = "https://user-info.herokuapp.com/users";
+    private static String UNABLE_TO_VOTE = "UNABLE_TO_VOTE";
 
     @Autowired
     VoteRepository voteRepository;
@@ -22,17 +25,32 @@ public class VoteService {
     public void save(VoteDTO voteDTO) {
         Vote vote = new Vote();
 
-        validateVote(vote);
+        vote.setCpf(voteDTO.getCpf());
+        vote.setEnumOption(voteDTO.getEnumOption());
+
+        validateVote(voteDTO,vote);
 
         voteRepository.save(vote);
     }
 
-    private void validateVote(Vote vote) {
-        String nomeata = "nomeata";
-        Optional<Agenda> agenda = agendaRepository.findAgendaByName(nomeata);
+    private void validateVote(VoteDTO voteDTO, Vote vote) {
+        Agenda agenda = agendaRepository.findAgendaByName(voteDTO.getNameAgenda());
 
-        if(!agenda.isPresent())
-            vote.setAgenda(agenda.get());
+        if(agenda.getVotes().contains(vote)){
+            //Exception
+        }
+
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> response
+            = restTemplate.getForEntity(URL_VALIDATION_CPF + "/"+voteDTO.getCpf(), String.class);
+
+        if(response.getBody().contains(UNABLE_TO_VOTE)){
+            //Exception
+        }
+
+        vote.setAgenda(agenda);
     }
 
 }

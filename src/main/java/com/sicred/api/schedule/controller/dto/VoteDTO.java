@@ -1,15 +1,17 @@
 package com.sicred.api.schedule.controller.dto;
 
 import com.sicred.api.schedule.model.enums.EnumOption;
-import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
-@Builder(toBuilder = true)
+@Getter
+@Setter
 public class VoteDTO {
 
     @NotEmpty(message = "{required.validation.nomeata}")
-    String nomeAta;
+    String nameAgenda;
 
     String cpf;
 
