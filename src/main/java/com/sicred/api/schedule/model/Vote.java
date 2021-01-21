@@ -1,5 +1,6 @@
-package com.sicred.api.schedule.model.enums;
+package com.sicred.api.schedule.model;
 
+import com.sicred.api.schedule.model.enums.EnumOption;
 import lombok.Data;
 
 import java.io.Serializable;

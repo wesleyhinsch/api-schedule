@@ -1,4 +1,4 @@
-package com.sicred.api.schedule.model.enums;
+package com.sicred.api.schedule.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
