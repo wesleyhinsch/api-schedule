@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,8 +38,7 @@ public class Agenda implements Serializable{
     @NotNull
     private Calendar closure;
 
-    @OneToMany(fetch = FetchType.LAZY,
-        mappedBy = "agenda")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "agenda")
     private Set<Vote> votes = new HashSet<>();
 
     @NotNull
@@ -47,5 +47,4 @@ public class Agenda implements Serializable{
     public Boolean isActive(){
         return active.equals(Boolean.TRUE)?Boolean.TRUE:Boolean.FALSE;
     }
-
 }

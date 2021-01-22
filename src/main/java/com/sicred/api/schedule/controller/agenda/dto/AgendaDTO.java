@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 public class AgendaDTO {
 
     @NotNull(message = "required.validation.agenda.closure")
-    @Max(message = "max.validation.agenda.closure", value = 999)
+    @Max(message = "max.validation.agenda.closure", value = 99999)
     int closure;
 
     @NotEmpty(message = "required.validation.agenda.name")

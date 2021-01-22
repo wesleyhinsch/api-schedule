@@ -33,6 +33,24 @@ public class SwaggerConfig {
     }
 
     @Bean
+    public Docket agendaApiV2() {
+        return new Docket(DocumentationType.SWAGGER_2)
+            .groupName("agenda-api-v2")
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.sicred.api.schedule.controller"))
+            .paths(regex("/api/agenda/v2.0.*"))
+            .build()
+            .apiInfo(
+                new ApiInfoBuilder()
+                    .version("v2.0")
+                    .title("Api Agenda v21.0")
+                    .description("Api to create voting minutes and view get all agendas closed")
+                    .contact(new Contact("Wesley Hinsch", "https://www.linkedin.com/in/wesleyhinsch/","wesleyhinsch@gmail.com"))
+                    .build()
+            );
+    }
+
+    @Bean
     public Docket voteApiV1() {
         return new Docket(DocumentationType.SWAGGER_2)
             .groupName("vote-api-v1")
