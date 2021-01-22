@@ -5,6 +5,7 @@ import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.repository.AgendaRepository;
 import com.sicred.api.schedule.service.agenda.exception.RegisteredAgendaException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ import java.util.Calendar;
 @Service
 public class AgendaService {
 
+    @Value("${agenda.default.closure}")
+    private int defaulClosure;
+
     @Autowired
     AgendaRepository agendaRepository;
 
@@ -20,6 +24,9 @@ public class AgendaService {
         try{
             Calendar dateCurrente = Calendar.getInstance();
             Agenda agenda = new Agenda();
+
+            if(agendaDTO.getClosure()>=0)
+                agendaDTO.setClosure(defaulClosure);
 
             dateCurrente.add(Calendar.SECOND,agendaDTO.getClosure());
             agenda.setClosure(dateCurrente);
