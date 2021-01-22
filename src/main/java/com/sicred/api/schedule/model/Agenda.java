@@ -2,6 +2,8 @@ package com.sicred.api.schedule.model;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -18,7 +20,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="AGENDA")
-@Data
+@Getter
+@Setter
 public class Agenda implements Serializable{
 
     private static final long serialVersionUID = 1L;

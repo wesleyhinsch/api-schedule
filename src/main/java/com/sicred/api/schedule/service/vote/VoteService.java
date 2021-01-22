@@ -1,15 +1,19 @@
-package com.sicred.api.schedule.service;
+package com.sicred.api.schedule.service.vote;
 
-import com.sicred.api.schedule.controller.dto.VoteDTO;
+import com.sicred.api.schedule.controller.vote.dto.VoteDTO;
 import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.model.Vote;
-import com.sicred.api.schedule.model.enums.EnumOption;
 import com.sicred.api.schedule.repository.AgendaRepository;
 import com.sicred.api.schedule.repository.VoteRepository;
+import com.sicred.api.schedule.service.vote.exception.InvalidCpfException;
+import com.sicred.api.schedule.service.vote.exception.VoteDuplicateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.CacheRequest;
 
 @Service
 public class VoteService {
@@ -39,16 +43,21 @@ public class VoteService {
     private void validateVote(VoteDTO voteDTO, Vote vote) {
         Agenda agenda = agendaRepository.findAgendaByName(voteDTO.getNameAgenda());
 
-        /*if(agenda.getVotes().contains(vote)){
-            //Exception
+        if (agenda.getVotes().contains(vote)) {
+            throw new VoteDuplicateException();
         }
 
-        ResponseEntity<String> response
-            = restTemplate.getForEntity(URL_VALIDATION_CPF + "/"+voteDTO.getCpf(), String.class);
+        ResponseEntity<String> response = null;
 
-       if(response.getBody().contains(UNABLE_TO_VOTE)){
-            //Exception
-       }*/
+        try {
+            response = restTemplate.getForEntity(URL_VALIDATION_CPF + "/" + voteDTO.getCpf(), String.class);
+        } catch (HttpClientErrorException h) {
+            throw new InvalidCpfException();
+        }
+
+        if (response.getBody().contains(UNABLE_TO_VOTE)) {
+            throw new VoteDuplicateException();
+        }
 
         vote.setAgenda(agenda);
     }

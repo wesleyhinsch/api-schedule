@@ -29,7 +29,7 @@ public class Vote implements Serializable{
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "AGENDA_ID", nullable = false)
     private Agenda agenda;
 
