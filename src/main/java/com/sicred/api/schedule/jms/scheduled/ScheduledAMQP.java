@@ -8,6 +8,7 @@ import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.model.Vote;
 import com.sicred.api.schedule.model.enums.EnumOption;
 import com.sicred.api.schedule.repository.AgendaRepository;
+import com.sicred.api.schedule.service.agenda.AgendaService;
 import org.hibernate.Hibernate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,18 @@ public class ScheduledAMQP {
     @Autowired
     private AgendaRepository agendaRepository;
 
+    @Autowired
+    private AgendaService agendaService;
+
     @Scheduled(fixedRate = 1000)
     private void checkClosingAgenda() {
-        Calendar corrente = Calendar.getInstance();
         List<Agenda> agendas =  agendaRepository.findByActive(Boolean.TRUE);
 
         for (Agenda agenda : agendas) {
-            if (agenda.getClosure().getTime().before(corrente.getTime())) {
+            if (agendaService.enabledToClose(agenda)) {
                 accounting(agenda);
                 agenda.setActive(Boolean.FALSE);
-                agendaRepository.saveAndFlush(agenda);
+                agendaRepository.save(agenda);
             }
         }
     }
@@ -48,6 +51,7 @@ public class ScheduledAMQP {
         ArrayList<Vote> votesNO = new ArrayList<Vote>();
         ArrayList<Vote> votesYES = new ArrayList<Vote>();
 
+        //verificar se vai quebrar ao retirar
         Hibernate.initialize(agenda.getVotes());
 
         for (Vote vote: agenda.getVotes()) {

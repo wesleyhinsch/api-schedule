@@ -1,6 +1,5 @@
 package com.sicred.api.schedule.controller.vote;
 
-import com.sicred.api.schedule.controller.abst.Controller;
 import com.sicred.api.schedule.controller.vote.dto.VoteDTO;
 import com.sicred.api.schedule.service.vote.VoteService;
 import io.swagger.annotations.Api;
@@ -18,15 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="/api/vote")
 @Api(value="API - Vote")
-public class VotoController extends Controller {
+public class VotoController {
 
     @Autowired
     VoteService voteService;
 
     @ApiOperation(value="Vote")
     @PostMapping(value = {"/v1.0"},consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> votar(@Validated @RequestBody VoteDTO voteDTO) {
-        voteService.save(voteDTO);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> vote(@Validated @RequestBody VoteDTO voteDTO) {
+        voteService.vote(voteDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

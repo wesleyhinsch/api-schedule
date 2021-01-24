@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class VoteDuplicateException extends BaseRuntimeException {
-    private static final String KEY = "rulles.bussines.vote.agenda.inexistent";
+public class VoteInNotStartedAgendaException extends BaseRuntimeException {
+    private static final String KEY = "rulles.bussines.vote.invalid.name";
 
-    public VoteDuplicateException() {
+    public VoteInNotStartedAgendaException() {
         super();
     }
 

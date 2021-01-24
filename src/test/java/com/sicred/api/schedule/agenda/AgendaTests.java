@@ -1,6 +1,6 @@
 package com.sicred.api.schedule.agenda;
 
-import com.sicred.api.schedule.BuildCpf;
+import com.sicred.api.schedule.TestUtils;
 import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.model.Vote;
 import com.sicred.api.schedule.model.enums.EnumOption;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -49,31 +50,49 @@ public class AgendaTests {
 
 
     private ArrayList<Agenda> createAgendas() {
+
+        Calendar current = Calendar.getInstance();
+        Date date = new Date(current.getTimeInMillis());
+
         ArrayList<Agenda> agendas = new ArrayList<>();
 
         Agenda agenda1 = new Agenda();
         agenda1.setName("agenda "+Math.random());
-        agenda1.setActive(Boolean.FALSE);
-        agenda1.setClosure(Calendar.getInstance());
+        agenda1.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda1.setClosing(date);
         agenda1.setVotes(createVotes(agenda1));
+        agenda1.setActive(Boolean.FALSE);
+        agenda1.setStarted(Boolean.TRUE);
+
 
         Agenda agenda2 = new Agenda();
         agenda2.setName("agenda "+Math.random());
+        agenda2.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda2.setClosing(date);
+        agenda2.setVotes(createVotes(agenda1));
         agenda2.setActive(Boolean.TRUE);
-        agenda2.setClosure(Calendar.getInstance());
-        agenda2.setVotes(createVotes(agenda2));
+        agenda2.setStarted(Boolean.TRUE);
 
         Agenda agenda3 = new Agenda();
         agenda3.setName("agenda "+Math.random());
+        agenda3.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda3.setClosing(date);
+        agenda3.setVotes(createVotes(agenda1));
         agenda3.setActive(Boolean.FALSE);
-        agenda3.setClosure(Calendar.getInstance());
-        agenda3.setVotes(createVotes(agenda3));
+        agenda3.setStarted(Boolean.FALSE);
+
 
         Agenda agenda4 = new Agenda();
         agenda4.setName("agenda "+Math.random());
+        agenda4.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda4.setClosing(date);
+        agenda4.setVotes(createVotes(agenda1));
         agenda4.setActive(Boolean.TRUE);
-        agenda4.setClosure(Calendar.getInstance());
-        agenda4.setVotes(createVotes(agenda4));
+        agenda4.setStarted(Boolean.FALSE);
 
         return agendas;
     }
@@ -83,25 +102,24 @@ public class AgendaTests {
 
         Vote vote1 = new Vote();
         vote1.setAgenda(agenda);
-        vote1.setCpf(BuildCpf.build());
+        vote1.setCpf(TestUtils.build());
         vote1.setEnumOption(EnumOption.NAO);
 
         Vote vote2 = new Vote();
         vote2.setAgenda(agenda);
-        vote2.setCpf(BuildCpf.build());
+        vote2.setCpf(TestUtils.build());
         vote2.setEnumOption(EnumOption.NAO);
 
         Vote vote3 = new Vote();
         vote3.setAgenda(agenda);
-        vote3.setCpf(BuildCpf.build());
+        vote3.setCpf(TestUtils.build());
         vote3.setEnumOption(EnumOption.SIM);
 
         Vote vote4 = new Vote();
         vote4.setAgenda(agenda);
-        vote4.setCpf(BuildCpf.build());
+        vote4.setCpf(TestUtils.build());
         vote4.setEnumOption(EnumOption.SIM);
 
         return votes;
     }
-
 }

@@ -1,9 +1,8 @@
 package com.sicred.api.schedule.vote;
 
-import com.sicred.api.schedule.BuildCpf;
+import com.sicred.api.schedule.TestUtils;
 import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.model.Vote;
-import com.sicred.api.schedule.model.enums.EnumOption;
 import com.sicred.api.schedule.repository.VoteRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -49,15 +47,15 @@ public class VoteTests {
 
         Vote vote1 = new Vote();
         vote1.setAgenda(createAgenda(vote1,true));
-        vote1.setCpf(BuildCpf.build());
+        vote1.setCpf(TestUtils.build());
 
         Vote vote2 = new Vote();
         vote2.setAgenda(createAgenda(vote1,false));
-        vote2.setCpf(BuildCpf.build());
+        vote2.setCpf(TestUtils.build());
 
         Vote vote3 = new Vote();
         vote3.setAgenda(createAgenda(vote1,true));
-        vote3.setCpf(BuildCpf.build());
+        vote3.setCpf(TestUtils.build());
 
         return votes;
     }
@@ -66,7 +64,7 @@ public class VoteTests {
         Agenda agenda = new Agenda();
         agenda.setName("agenda "+Math.random());
         agenda.setActive(closure);
-        agenda.setClosure(Calendar.getInstance());
+        agenda.setClosure(TestUtils.buildClosure());
         agenda.getVotes().add(vote);
         return agenda;
     }

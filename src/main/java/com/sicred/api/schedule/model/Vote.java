@@ -17,10 +17,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.sun.istack.NotNull;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Table(name="VOTE")
 @Data
+@EqualsAndHashCode
 public class Vote implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +30,7 @@ public class Vote implements Serializable{
     @Id
     @NotNull
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -39,7 +42,7 @@ public class Vote implements Serializable{
 
     @NotNull
     @Enumerated(EnumType.ORDINAL)
+    @EqualsAndHashCode.Exclude
     private EnumOption enumOption;
-
 
 }

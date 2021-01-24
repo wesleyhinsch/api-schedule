@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class RegisteredAgendaException extends BaseRuntimeException {
+public class DuplicateRegisteredAgendaException extends BaseRuntimeException {
     private static final String KEY = "rulles.bussines.agenda.registered";
 
-    public RegisteredAgendaException() {
+    public DuplicateRegisteredAgendaException() {
         super();
     }
 

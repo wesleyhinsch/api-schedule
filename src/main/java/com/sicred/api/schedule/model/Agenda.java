@@ -1,12 +1,12 @@
 package com.sicred.api.schedule.model;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Calendar;
+
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +23,7 @@ import javax.persistence.Table;
 @Table(name="AGENDA")
 @Getter
 @Setter
+
 public class Agenda implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +37,9 @@ public class Agenda implements Serializable{
     private String name;
 
     @NotNull
-    private Calendar closure;
+    private int closure;
+
+    private Date closing;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "agenda")
     private Set<Vote> votes = new HashSet<>();
@@ -44,7 +47,7 @@ public class Agenda implements Serializable{
     @NotNull
     private Boolean active;
 
-    public Boolean isActive(){
-        return active.equals(Boolean.TRUE)?Boolean.TRUE:Boolean.FALSE;
-    }
+    @NotNull
+    private Boolean started;
+
 }

@@ -1,7 +1,6 @@
 package com.sicred.api.schedule;
 
-
-public class BuildCpf {
+public class TestUtils {
 
     private static int random(int n) {
         int ranNum = (int) (Math.random() * n);
@@ -44,4 +43,13 @@ public class BuildCpf {
 
         return cpf;
     }
+
+    public static int buildClosure() {
+        long dgt1 = (int) Math.random();
+        long dgt2 = (int) Math.random();
+        long dgt3 = (int) Math.random();
+        String concatDigts = dgt1+""+dgt2+""+dgt3;
+        return Integer.parseInt(concatDigts);
+    }
+
 }
