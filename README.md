@@ -61,6 +61,9 @@ O consumer persiste os dados na table agenda_result e seu resultado pode ser obs
 ●  Para facilitar a avaliação eu tomei a liberdade de criar 'manifestos' da aplicação e suas integrações
 para  que se possa 'startar' ela mais rapidamente.
 Como foi relatado que a aplicação irá rodar na nuvem acho perfeitamente viável utilizar um k8s as a service.
+Basta fazer o git clone do projeto https://github.com/wesleyhinsch/api-schedule-k8s e executar o comando :
+kubectl apply -f ./ - R
+Dentro do diretório do projeto, com isso em pouco tempo a aplicação estará de disponivel no cluster.
 
 ## Explicação breve do porquê das escolhas tomadas durante o desenvolvimento da solução
 
