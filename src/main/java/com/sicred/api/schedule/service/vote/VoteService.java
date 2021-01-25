@@ -44,7 +44,7 @@ public class VoteService {
         try{
             Vote vote = new Vote();
 
-            vote.setCpf(voteDTO.getCpf());
+            vote.setCpf(voteDTO.getCpf().replaceAll("[./-]", ""));
             vote.setEnumOption(voteDTO.getEnumOption());
 
             validateVote(voteDTO,vote);

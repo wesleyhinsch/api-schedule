@@ -49,7 +49,7 @@ public class AgendaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @ApiOperation(value="View closed agendas")
+    @ApiOperation(value="View open agendas")
     @GetMapping(value = {"/v1.0"},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String>  viewOpenAgendas(){
         List<Agenda> agendas = agendaService.findAllOpen();
