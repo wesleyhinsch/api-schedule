@@ -33,7 +33,7 @@ public class Vote implements Serializable{
     @EqualsAndHashCode.Exclude
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "AGENDA_ID", nullable = false)
     private Agenda agenda;
 

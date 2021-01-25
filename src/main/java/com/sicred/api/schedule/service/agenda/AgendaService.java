@@ -77,7 +77,7 @@ public class AgendaService {
             agenda.setClosing(date);
 
             agenda.setStarted(Boolean.TRUE);
-            agendaRepository.save(agenda);
+            agendaRepository.saveAndFlush(agenda);
             logger.info("start agenda :"+agenda.getName());
         }catch (Exception e){
             logger.error("error start agenda error :"+e.getMessage());

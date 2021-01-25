@@ -1,8 +1,8 @@
 package com.sicred.api.schedule.jms.scheduled;
 
-import com.sicred.api.schedule.jms.AgendaAMQPConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sicred.api.schedule.jms.AgendaAMQPConfig;
 import com.sicred.api.schedule.jms.payload.AgendaPayload;
 import com.sicred.api.schedule.model.Agenda;
 import com.sicred.api.schedule.model.Vote;
@@ -17,7 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Component

@@ -1,5 +1,6 @@
 package com.sicred.api.schedule.agendaresult;
 
+import com.sicred.api.schedule.ApiScheduleApplicationTests;
 import com.sicred.api.schedule.model.AgendaResult;
 import com.sicred.api.schedule.repository.AgendaResultRepository;
 import org.junit.Assert;
@@ -9,16 +10,16 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AgendaResultTests {
+public class AgendaResultTests extends ApiScheduleApplicationTests {
 
 
     private static final Logger logger = LoggerFactory.getLogger(AgendaResultTests.class);

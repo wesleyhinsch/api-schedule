@@ -1,6 +1,21 @@
 package com.sicred.api.schedule;
 
+import com.sicred.api.schedule.controller.agenda.dto.AgendaDTO;
+import com.sicred.api.schedule.controller.vote.dto.VoteDTO;
+import com.sicred.api.schedule.model.Agenda;
+import com.sicred.api.schedule.model.Vote;
+import com.sicred.api.schedule.model.enums.EnumOption;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
+
 public class TestUtils {
+
+    public static final String INVALID_CPF = "11111111111";
+    public static int DEFAULT_CLOSURE = 60;
 
     private static int random(int n) {
         int ranNum = (int) (Math.random() * n);
@@ -11,7 +26,7 @@ public class TestUtils {
         return (int) Math.round(mod1 - (Math.floor(mod1 / mod2) * mod2));
     }
 
-    public static  String build() {
+    public static  String buildCpf() {
         int n = 9;
         int n1 = random(n);
         int n2 = random(n);
@@ -50,6 +65,116 @@ public class TestUtils {
         long dgt3 = (int) Math.random();
         String concatDigts = dgt1+""+dgt2+""+dgt3;
         return Integer.parseInt(concatDigts);
+    }
+
+
+    public static ArrayList<Agenda> createAgendas() {
+
+        Calendar current = Calendar.getInstance();
+        Date date = new Date(current.getTimeInMillis());
+
+        ArrayList<Agenda> agendas = new ArrayList<>();
+
+        Agenda agenda1 = new Agenda();
+        agenda1.setName("agenda "+Math.random());
+        agenda1.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda1.setClosing(date);
+        agenda1.setVotes(createVotes(agenda1));
+        agenda1.setActive(Boolean.FALSE);
+        agenda1.setStarted(Boolean.TRUE);
+        agendas.add(agenda1);
+
+
+        Agenda agenda2 = new Agenda();
+        agenda2.setName("agenda "+Math.random());
+        agenda2.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda2.setClosing(date);
+        agenda2.setVotes(createVotes(agenda1));
+        agenda2.setActive(Boolean.TRUE);
+        agenda2.setStarted(Boolean.TRUE);
+        agendas.add(agenda2);
+
+        Agenda agenda3 = new Agenda();
+        agenda3.setName("agenda "+Math.random());
+        agenda3.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda3.setClosing(date);
+        agenda3.setVotes(createVotes(agenda1));
+        agenda3.setActive(Boolean.FALSE);
+        agenda3.setStarted(Boolean.FALSE);
+        agendas.add(agenda3);
+
+
+        Agenda agenda4 = new Agenda();
+        agenda4.setName("agenda "+Math.random());
+        agenda4.setClosure(TestUtils.buildClosure());
+        current.add(Calendar.SECOND,agenda1.getClosure());
+        agenda4.setClosing(date);
+        agenda4.setVotes(createVotes(agenda1));
+        agenda4.setActive(Boolean.TRUE);
+        agenda4.setStarted(Boolean.FALSE);
+        agendas.add(agenda4);
+
+        return agendas;
+    }
+
+    private static Set<Vote> createVotes(Agenda agenda) {
+        Set<Vote> votes = new HashSet<>();
+
+        Vote vote1 = new Vote();
+        vote1.setAgenda(agenda);
+        vote1.setCpf(TestUtils.buildCpf());
+        vote1.setEnumOption(EnumOption.NAO);
+
+        Vote vote2 = new Vote();
+        vote2.setAgenda(agenda);
+        vote2.setCpf(TestUtils.buildCpf());
+        vote2.setEnumOption(EnumOption.NAO);
+
+        Vote vote3 = new Vote();
+        vote3.setAgenda(agenda);
+        vote3.setCpf(TestUtils.buildCpf());
+        vote3.setEnumOption(EnumOption.SIM);
+
+        Vote vote4 = new Vote();
+        vote4.setAgenda(agenda);
+        vote4.setCpf(TestUtils.buildCpf());
+        vote4.setEnumOption(EnumOption.SIM);
+
+        return votes;
+    }
+
+    public static  AgendaDTO buildAgendaDto(String name) {
+        AgendaDTO agendaDTO = new AgendaDTO();
+        agendaDTO.setClosure(DEFAULT_CLOSURE);
+        if (name==null) {
+            agendaDTO.setName("agenda " + Math.random());
+        } else {
+            agendaDTO.setName(name);
+        }
+        return agendaDTO;
+    }
+
+    public static VoteDTO buildVoteDto(AgendaDTO agendaDTO, String cpf,boolean optionVote ) {
+        VoteDTO voteDTO = new VoteDTO();
+
+        if (cpf==null) {
+            voteDTO.setCpf(TestUtils.buildCpf());
+        } else {
+            voteDTO.setCpf(cpf);
+        }
+
+        if (optionVote) {
+            voteDTO.setEnumOption(EnumOption.NAO);
+        } else {
+            voteDTO.setEnumOption(EnumOption.SIM);
+        }
+
+        voteDTO.setNameAgenda(agendaDTO.getName());
+
+        return voteDTO;
     }
 
 }
