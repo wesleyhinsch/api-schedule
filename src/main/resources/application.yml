@@ -22,7 +22,7 @@ spring:
       database-platform: org.hibernate.dialect.MySQL5Dialect
   rabbitmq:
     #Local
-    #addresses: 10.79.56.149:32366
+    #addresses: 10.79.56.149:30227
     #adminAddresses: http://10.79.56.149:30672
     #Cluster
     addresses: ${RABBITMQ_SERVICE}:5672
